@@ -10,13 +10,13 @@ Un modelo que estima, para cada empleado, la probabilidad de que renuncie, y una
 | Entrega | Qué contiene | Abrir en Colab | Estado |
 |---|---|---|---|
 | 1. Preparación de los datos | `notebooks/01_datos.ipynb` | [![Abrir en Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/gioaqp/attrition-uba/blob/main/notebooks/01_datos.ipynb) | lista |
-| 2. Entrenamiento del modelo | `notebooks/02_modelo.ipynb` | próximamente | en curso |
-| 3. Despliegue para consumo | `api/` | próximamente | pendiente |
+| 2. Entrenamiento del modelo | `notebooks/02_modelo.ipynb` | [![Abrir en Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/gioaqp/attrition-uba/blob/main/notebooks/02_modelo.ipynb) | lista |
+| 3. Despliegue para consumo | `api/` | próximamente | en curso |
 
 ## Verlo sin instalar nada
 
 - **Colab:** botón de la tabla y luego *Entorno de ejecución → Ejecutar todo*. La primera celda descarga este repositorio e instala lo necesario. Tarda alrededor de un minuto.
-- **Solo leer:** `reports/01_datos.html` es el cuaderno con todas sus salidas; `reports/eda_sweetviz.html` es el reporte automático de exploración.
+- **Solo leer:** `reports/01_datos.html` y `reports/02_modelo.html` son los cuadernos con todas sus salidas; `reports/eda_sweetviz.html` es el reporte automático de exploración.
 
 ## Correrlo en la computadora
 
@@ -27,10 +27,11 @@ uv venv .venv --python 3.11
 uv pip install --python .venv\Scripts\python.exe -r requirements.txt
 ```
 
-Abrir los cuadernos con doble clic en `abrir_cuadernos.bat`, o ejecutarlos de punta a punta:
+Abrir los cuadernos con doble clic en `abrir_cuadernos.bat`, o ejecutarlos de punta a punta (el segundo vuelve a entrenar el modelo y regenera `models/`):
 
 ```powershell
 .venv\Scripts\jupyter nbconvert --to notebook --execute --inplace notebooks\01_datos.ipynb
+.venv\Scripts\jupyter nbconvert --to notebook --execute --inplace notebooks\02_modelo.ipynb
 ```
 
 Quien use conda puede crear el entorno con `environment.yml`, que instala las mismas versiones.
@@ -42,11 +43,25 @@ attrition-uba/
 ├── data/                   dataset original y, en procesado/, el dataset final de la Entrega 1
 ├── notebooks/              un cuaderno por entrega
 ├── reports/                versiones HTML de los cuadernos y reporte Sweetviz
-├── models/                 modelo entrenado (Entrega 2)
+├── models/                 modelo_attrition.pkl (pipeline + modelo + punto de corte) y metricas.json
 ├── api/                    servicio de predicción (Entrega 3)
 ├── requirements.txt        versiones exactas del entorno
 ```
 
+## Modelo
+
+Regresión logística con pesos de clase (`class_weight="balanced"`), dentro del mismo pipeline de preparación de la Entrega 1. Ajustada por validación cruzada de 5 particiones sobre 12 configuraciones (mejor: C = 0,3, penalización L2, ROC-AUC 0,831). Punto de corte 0,40, elegido con predicciones de validación cruzada para detectar al menos 8 de cada 10 renuncias. El grupo de examen (294 empleados, 47 renuncias) se usó una sola vez.
+
 ## Métricas finales
 
-Se completan con la Entrega 2.
+Grupo de examen, comparado con el baseline que predice siempre "se queda":
+
+| Métrica | Baseline | Modelo final |
+|---|---|---|
+| ROC-AUC | 0,50 | 0,81 |
+| Recall (renuncias detectadas) | 0,00 | 0,79 (37 de 47) |
+| Precisión | 0,00 | 0,34 |
+| F1 | 0,00 | 0,47 |
+| Exactitud | 0,84 | 0,72 |
+
+Los valores exactos están en `models/metricas.json`.

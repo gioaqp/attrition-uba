@@ -1,0 +1,16 @@
+{
+  "modelo": "LogisticRegression",
+  "configuracion": {
+    "modelo__C": 0.3,
+    "modelo__l1_ratio": 0
+  },
+  "corte": 0.4,
+  "validacion_roc_auc": 0.831,
+  "examen": {
+    "ROC-AUC": 0.812,
+    "Recall": 0.787,
+    "Precisión": 0.336,
+    "F1": 0.471,
+    "Exactitud": 0.718
+  }
+}
