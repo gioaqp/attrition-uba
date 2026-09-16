@@ -7796,63 +7796,18 @@ a.anchor-link {
 <!-- End of mermaid configuration --></head>
 <body class="jp-Notebook" data-jp-theme-light="true" data-jp-theme-name="JupyterLab Light">
 <main>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=29e55804">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=c8536e6f">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h1 id="Entrega-1-%C2%B7-Preparaci%C3%B3n-de-los-datos">Entrega 1 · Preparación de los datos<a class="anchor-link" href="#Entrega-1-%C2%B7-Preparaci%C3%B3n-de-los-datos">¶</a></h1><h2 id="Predicci%C3%B3n-de-renuncias-de-empleados-(IBM-HR-Analytics)">Predicción de renuncias de empleados (IBM HR Analytics)<a class="anchor-link" href="#Predicci%C3%B3n-de-renuncias-de-empleados-(IBM-HR-Analytics)">¶</a></h2><p><strong>Curso:</strong> M71V/M72V 02 · Implementación de Modelos de Aprendizaje Automático · UBA, Cohorte Septiembre 2025
-<strong>Alumno:</strong> Giovanni Raffo
-<strong>Trabajo final · Entrega 1 de 3</strong> · Repositorio: <a href="https://github.com/gioaqp/attrition-uba">github.com/gioaqp/attrition-uba</a></p>
-<p>Este cuaderno cubre los seis puntos que pide la consigna para la Entrega 1 y, punto por punto, la <strong>Primera Asignación</strong> publicada por el profesor en la clase 6 (la tabla de cierre, sección 10, muestra dónde está cada uno).</p>
-<table>
-<thead>
-<tr>
-<th>#</th>
-<th>Consigna</th>
-<th>Dónde está</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>1</td>
-<td>Cargar el dataset y describir el problema de clasificación</td>
-<td>Secciones 1 y 2</td>
-</tr>
-<tr>
-<td>2</td>
-<td>Limpieza básica (faltantes, duplicados, outliers) y EDA mínimo</td>
-<td>Secciones 3, 4 y 6</td>
-</tr>
-<tr>
-<td>3</td>
-<td>Preparar variables (codificación de categóricas y escalado)</td>
-<td>Secciones 5, 6 y 8</td>
-</tr>
-<tr>
-<td>4</td>
-<td>Definir el split y evitar <em>data leakage</em></td>
-<td>Sección 7</td>
-</tr>
-<tr>
-<td>5</td>
-<td>Construir un pipeline de preprocesamiento reproducible</td>
-<td>Sección 8</td>
-</tr>
-<tr>
-<td>6</td>
-<td>Probar un baseline para tener referencia de métricas</td>
-<td>Sección 9</td>
-</tr>
-</tbody>
-</table>
-<p><strong>Cómo leer este cuaderno:</strong> cada bloque de código va precedido por una explicación en lenguaje de negocio: qué se hace, por qué, y qué significa el resultado para Recursos Humanos. Para cada decisión de preparación se explica también por qué <strong>no</strong> se hizo algo, cuando corresponde.</p>
-<p>Si el cuaderno se abre en Google Colab, la celda siguiente descarga el proyecto desde GitHub e instala lo necesario. En la computadora local no hace nada.</p>
+<h1 id="Entrega-1-%C2%B7-Preparaci%C3%B3n-de-los-datos">Entrega 1 · Preparación de los datos<a class="anchor-link" href="#Entrega-1-%C2%B7-Preparaci%C3%B3n-de-los-datos">¶</a></h1><h3 id="Predicci%C3%B3n-de-renuncias-de-empleados-(IBM-HR-Analytics)">Predicción de renuncias de empleados (IBM HR Analytics)<a class="anchor-link" href="#Predicci%C3%B3n-de-renuncias-de-empleados-(IBM-HR-Analytics)">¶</a></h3><p>M71V/M72V 02 · Implementación de Modelos de Aprendizaje Automático · UBA · <strong>Giovanni Raffo</strong> · <a href="https://github.com/gioaqp/attrition-uba">github.com/gioaqp/attrition-uba</a></p>
+<p>La primera celda solo actúa en Google Colab: descarga el proyecto e instala lo necesario.</p>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=b0707c68">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=cd4f4875">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -7872,32 +7827,29 @@ a.anchor-link {
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=3c9c4e16">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=e0349a28">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="1.-El-problema:-anticipar-renuncias">1. El problema: anticipar renuncias<a class="anchor-link" href="#1.-El-problema:-anticipar-renuncias">¶</a></h2><p><strong>Qué es la renuncia voluntaria (<em>attrition</em>).</strong> Es la salida de un empleado por decisión propia. Para la empresa es un costo alto y en buena parte evitable: reclutar y seleccionar un reemplazo, capacitarlo, meses de menor productividad y pérdida de conocimiento del equipo. Suele estimarse en varios meses de salario del puesto.</p>
-<p><strong>Qué queremos predecir.</strong> Para cada empleado, la <strong>probabilidad de que renuncie</strong>, a partir de datos que la empresa ya tiene: edad, puesto, ingreso, horas extra, distancia al trabajo, satisfacción, antigüedad. Como la respuesta tiene dos valores posibles, <em>renuncia</em> o <em>se queda</em>, es un problema de <strong>clasificación binaria</strong>.</p>
-<p><strong>Para qué sirve.</strong> Recursos Humanos puede usar esa probabilidad como una lista de prioridad: con quién conviene tener una conversación de retención antes de que sea tarde. El modelo no decide nada por sí solo; ordena la atención.</p>
-<p><strong>Los datos.</strong> Es el dataset que asignó el profesor en la clase 7: <em>IBM HR Analytics Employee Attrition &amp; Performance</em>, publicado en Kaggle. Son 1.470 empleados y 35 columnas. Es un conjunto de datos ficticio creado por científicos de datos de IBM para practicar exactamente este problema, así que no contiene datos personales reales.</p>
-<p><strong>Un detalle que atraviesa todo el trabajo:</strong> solo el 16 % de los empleados renuncia. El problema está <em>desbalanceado</em>, y eso va a condicionar qué métricas sirven y cómo se entrena el modelo.</p>
+<h2 id="1.-El-problema">1. El problema<a class="anchor-link" href="#1.-El-problema">¶</a></h2><p>La renuncia voluntaria de un empleado cuesta meses de salario: reclutar, capacitar y recuperar productividad. Queremos anticiparla: para cada empleado, la <strong>probabilidad de que renuncie</strong>, para que Recursos Humanos priorice con quién conversar antes. Es una clasificación binaria: renuncia o se queda.</p>
+<p>Los datos son los asignados por el profesor: <em>IBM HR Analytics Employee Attrition</em> (Kaggle), 1.470 empleados y 35 columnas, datos ficticios creados por IBM. Solo el 16 % renuncia: el problema está <strong>desbalanceado</strong>, y eso condiciona qué métricas sirven y cómo se entrena.</p>
 </div>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=79852b42">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=db27a41c">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="2.-Cargar-los-datos">2. Cargar los datos<a class="anchor-link" href="#2.-Cargar-los-datos">¶</a></h2><p>Leemos el archivo tal como lo publicó el profesor, sin modificarlo a mano. Único detalle técnico: el archivo trae al inicio una marca invisible de codificación (BOM). Si no se la quita al leer, la primera columna aparecería con un nombre extraño. Por eso se lee con <code>encoding="utf-8-sig"</code>.</p>
+<h2 id="2.-Los-datos">2. Los datos<a class="anchor-link" href="#2.-Los-datos">¶</a></h2><p>Se leen tal como los publicó el profesor. El archivo trae una marca de codificación (BOM) que se quita con <code>utf-8-sig</code>.</p>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=9b466a75">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=fe958c16">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8101,83 +8053,17 @@ a.anchor-link {
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=51f4a9a2">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=8081e5be">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="Qu%C3%A9-significa-cada-columna">Qué significa cada columna<a class="anchor-link" href="#Qu%C3%A9-significa-cada-columna">¶</a></h3><table>
-<thead>
-<tr>
-<th>Columnas</th>
-<th>Qué representan</th>
-<th>Valores</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>Attrition</code></td>
-<td><strong>Variable objetivo</strong>: ¿el empleado renunció?</td>
-<td>Yes / No</td>
-</tr>
-<tr>
-<td><code>Age</code>, <code>Gender</code>, <code>MaritalStatus</code></td>
-<td>Edad, género y estado civil</td>
-<td>18 a 60 · Female/Male · Single/Married/Divorced</td>
-</tr>
-<tr>
-<td><code>Department</code>, <code>JobRole</code>, <code>JobLevel</code></td>
-<td>Área, puesto y nivel jerárquico</td>
-<td>3 áreas · 9 puestos · nivel 1 a 5</td>
-</tr>
-<tr>
-<td><code>Education</code>, <code>EducationField</code></td>
-<td>Nivel educativo y campo de estudio</td>
-<td>1 a 5 · 6 campos</td>
-</tr>
-<tr>
-<td><code>MonthlyIncome</code>, <code>MonthlyRate</code>, <code>DailyRate</code>, <code>HourlyRate</code></td>
-<td>Ingreso mensual y tarifas de facturación</td>
-<td>USD</td>
-</tr>
-<tr>
-<td><code>PercentSalaryHike</code>, <code>StockOptionLevel</code></td>
-<td>Último aumento y nivel de opciones sobre acciones</td>
-<td>% · 0 a 3</td>
-</tr>
-<tr>
-<td><code>OverTime</code>, <code>BusinessTravel</code>, <code>DistanceFromHome</code></td>
-<td>Horas extra, frecuencia de viajes, distancia al trabajo</td>
-<td>Yes/No · 3 niveles · km</td>
-</tr>
-<tr>
-<td><code>JobSatisfaction</code>, <code>EnvironmentSatisfaction</code>, <code>RelationshipSatisfaction</code>, <code>WorkLifeBalance</code>, <code>JobInvolvement</code></td>
-<td>Encuestas de satisfacción y compromiso</td>
-<td>escala 1 (baja) a 4 (alta)</td>
-</tr>
-<tr>
-<td><code>PerformanceRating</code></td>
-<td>Evaluación de desempeño</td>
-<td>3 o 4</td>
-</tr>
-<tr>
-<td><code>TotalWorkingYears</code>, <code>NumCompaniesWorked</code>, <code>YearsAtCompany</code>, <code>YearsInCurrentRole</code>, <code>YearsSinceLastPromotion</code>, <code>YearsWithCurrManager</code>, <code>TrainingTimesLastYear</code></td>
-<td>Trayectoria: años de carrera, empresas previas, antigüedad, tiempo en el rol, tiempo desde el último ascenso, tiempo con el jefe actual, capacitaciones del último año</td>
-<td>años / cantidad</td>
-</tr>
-<tr>
-<td><code>EmployeeNumber</code>, <code>EmployeeCount</code>, <code>StandardHours</code>, <code>Over18</code></td>
-<td>Número de legajo y tres columnas administrativas</td>
-<td>se analizan en la sección 4</td>
-</tr>
-</tbody>
-</table>
-<p>La tabla siguiente muestra, para cada columna, su tipo de dato, cuántos valores distintos toma y un ejemplo. Sirve para detectar a simple vista columnas sospechosas: las que tienen un solo valor o un valor distinto por empleado.</p>
+<p>Tipo de dato, cantidad de valores distintos y un ejemplo por columna. Sirve para detectar columnas sospechosas: un solo valor, o un valor distinto por empleado.</p>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=0c7f404b">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=f0443f88">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8440,17 +8326,17 @@ a.anchor-link {
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=c3e0f3ab">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=bfcb9244">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="3.-Calidad-de-los-datos:-faltantes,-duplicados-y-valores-extremos">3. Calidad de los datos: faltantes, duplicados y valores extremos<a class="anchor-link" href="#3.-Calidad-de-los-datos:-faltantes,-duplicados-y-valores-extremos">¶</a></h2><p>Antes de analizar nada, dos controles básicos: ¿hay celdas vacías? ¿hay empleados repetidos? Si hubiera faltantes habría que decidir cómo completarlos (imputar); si hubiera duplicados, eliminarlos. Se verifica con código, no se asume.</p>
+<h2 id="3.-Calidad:-faltantes,-duplicados-y-valores-extremos">3. Calidad: faltantes, duplicados y valores extremos<a class="anchor-link" href="#3.-Calidad:-faltantes,-duplicados-y-valores-extremos">¶</a></h2><p>Primero se verifica que no falte nada ni haya empleados repetidos.</p>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=71f159c7">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=953cab27">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8480,19 +8366,18 @@ Filas duplicadas: 0
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=1a27e22a">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=73eaef23">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p><strong>Resultado y decisión:</strong> no hay celdas vacías ni filas duplicadas. <strong>No hay nada que imputar ni borrar</strong>; queda documentado. Si en el futuro llegaran datos con faltantes, la receta de la sección 8 es el lugar donde se agregaría un paso de imputación (por ejemplo, la mediana para numéricas y la categoría más frecuente para categóricas).</p>
-<h3 id="Valores-extremos-(outliers)">Valores extremos (<em>outliers</em>)<a class="anchor-link" href="#Valores-extremos-(outliers)">¶</a></h3><p>Un valor extremo es un dato muy alejado del resto: un sueldo muy alto, una antigüedad muy larga. Hay que mirarlos porque a veces son errores de carga. Acá no lo son: un director gana mucho más que un técnico, y alguien puede llevar 40 años trabajando. Son empleados reales que el modelo tiene que poder evaluar.</p>
-<p><strong>Decisión: no se eliminan.</strong> El modelo que usaremos, con las variables llevadas a una misma escala, los tolera bien. Y hay una regla que no se rompe: no se borran filas por sus valores, porque estaríamos eligiendo qué empleados le "convienen" al modelo.</p>
+<p><strong>Resultado:</strong> no hay faltantes ni duplicados; no hay nada que imputar ni borrar.</p>
+<p><strong>Valores extremos.</strong> Un director gana mucho más que un técnico y alguien puede tener 40 años de carrera: son empleados reales, no errores. <strong>Decisión:</strong> se conservan; el modelo, con las variables escaladas, los tolera.</p>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=9f76364a">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=db226af6">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8527,21 +8412,17 @@ Filas duplicadas: 0
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=821bf03c">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=f5422c7a">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="4.-Columnas-que-no-aportan-informaci%C3%B3n-(baja-varianza-e-identificadores)">4. Columnas que no aportan información (baja varianza e identificadores)<a class="anchor-link" href="#4.-Columnas-que-no-aportan-informaci%C3%B3n-(baja-varianza-e-identificadores)">¶</a></h2><p>No todas las columnas sirven para predecir. Buscamos dos tipos <strong>con código, no a ojo</strong>:</p>
-<ul>
-<li><strong>Constantes</strong>: todos los empleados tienen el mismo valor. Es el caso extremo de <em>baja varianza</em> (varianza cero). No distinguen a nadie, así que no pueden explicar por qué uno renuncia y otro no.</li>
-<li><strong>Identificadores</strong>: un valor distinto por empleado, como el número de legajo. Identifican a la persona pero no la describen. Peor: si se dejan, el modelo puede "memorizar" qué legajos renunciaron en lugar de aprender patrones. Es una forma de <em>data leakage</em>: usar información que no describe al empleado ni estaría disponible para un caso nuevo.</li>
-</ul>
+<h2 id="4.-Columnas-que-no-aportan">4. Columnas que no aportan<a class="anchor-link" href="#4.-Columnas-que-no-aportan">¶</a></h2><p>Con código se buscan columnas <strong>constantes</strong> (varianza cero: no distinguen a nadie) e <strong>identificadores</strong> (un valor por empleado: describen al legajo, no a la persona, y el modelo podría memorizarlos).</p>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=ae084776">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=bb97d215">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8584,25 +8465,18 @@ Name: count, dtype: int64
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=46a1a3c5">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=b8c3bd54">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p><strong>Resultado:</strong> tres constantes (<code>EmployeeCount</code>, <code>StandardHours</code>, <code>Over18</code>) y un identificador (<code>EmployeeNumber</code>). Se eliminan las cuatro. Quedan 30 variables para predecir más la variable objetivo.</p>
-<p><strong>Sobre la baja varianza que no es cero:</strong> <code>PerformanceRating</code> toma solo dos valores y el 85 % de los empleados tiene el mismo. Es casi constante, pero todavía distingue empleados. <strong>Decisión: se conserva.</strong> Un modelo con regularización no se perjudica por una columna poco informativa; si en la Entrega 2 su peso resulta nulo, queda documentado. <code>Gender</code> y <code>OverTime</code> también tienen dos valores, pero están bien repartidos y son informativas.</p>
-<h2 id="5.-Tipos-de-variables-y-c%C3%B3mo-se-preparan">5. Tipos de variables y cómo se preparan<a class="anchor-link" href="#5.-Tipos-de-variables-y-c%C3%B3mo-se-preparan">¶</a></h2><p>Los modelos trabajan con números. Por eso hay que decidir qué hacer con cada tipo de columna:</p>
-<ul>
-<li><strong>Categóricas</strong> (texto: área, puesto, estado civil, horas extra sí/no). Se convierten en columnas de sí/no, una por cada opción. Se llama <em>one-hot encoding</em>. Por ejemplo, <code>Department</code> pasa a ser tres columnas: ¿es Ventas?, ¿es Investigación y Desarrollo?, ¿es Recursos Humanos?</li>
-<li><strong>Numéricas</strong> (edad, ingreso, distancia, antigüedad). Se llevan a una misma escala restando el promedio y dividiendo por la dispersión (<em>normalización</em> o <em>escalado estándar</em>). Así el ingreso, que se mide en miles, no pesa más que la distancia, que se mide en decenas, solo por el tamaño de sus números.</li>
-</ul>
-<p><strong>Una decisión que hay que tomar y defender.</strong> Nueve columnas parecen números pero son escalas de encuesta: <code>Education</code>, <code>EnvironmentSatisfaction</code>, <code>JobInvolvement</code>, <code>JobLevel</code>, <code>JobSatisfaction</code>, <code>PerformanceRating</code>, <code>RelationshipSatisfaction</code>, <code>StockOptionLevel</code> y <code>WorkLifeBalance</code>. ¿Se tratan como números o como categorías? <strong>Las tratamos como números</strong>, porque el orden es información real: un 4 de satisfacción es más que un 2, y perder ese orden sería tirar información. Además, convertirlas en categorías multiplicaría las columnas con un dataset chico. Es una postura consciente, no un descuido.</p>
-<p><strong>Sobre crear variables nuevas:</strong> el dataset ya trae las variables derivadas que uno construiría (años en la empresa, años en el rol, años desde el último ascenso, cantidad de empresas previas). <strong>Decisión: no se crean variables nuevas</strong> en esta entrega; el único cambio de tipo es el tratamiento consciente de las escalas como números.</p>
+<p><strong>Decisión:</strong> se eliminan las tres constantes y el número de legajo. <code>PerformanceRating</code> es casi constante (85 % con el mismo valor) pero se conserva: todavía distingue empleados y un modelo regularizado no se perjudica.</p>
+<h2 id="5.-Tipos-de-variables">5. Tipos de variables<a class="anchor-link" href="#5.-Tipos-de-variables">¶</a></h2><p>Las categóricas (texto) se convierten en columnas de sí/no; las numéricas se llevan a una misma escala. <strong>Decisión:</strong> las nueve escalas de encuesta (satisfacción, nivel educativo, etc.) se tratan como números, porque el orden es información. No se crean variables nuevas: el dataset ya trae las derivadas útiles.</p>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=787069a8">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=98701c7f">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8647,17 +8521,17 @@ Numéricas: 23
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=5abe8fb6">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=03b1c42e">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="6.-Exploraci%C3%B3n-de-los-datos">6. Exploración de los datos<a class="anchor-link" href="#6.-Exploraci%C3%B3n-de-los-datos">¶</a></h2><p>Cuatro preguntas que le importan a Recursos Humanos, respondidas con gráficos simples: ¿cuántos renuncian? ¿pesan las horas extra? ¿hay puestos más críticos? ¿el ingreso hace diferencia?</p>
+<h2 id="6.-Exploraci%C3%B3n">6. Exploración<a class="anchor-link" href="#6.-Exploraci%C3%B3n">¶</a></h2><p>Cuatro preguntas de Recursos Humanos: ¿cuántos renuncian? ¿pesan las horas extra? ¿qué puestos son críticos? ¿el ingreso hace diferencia?</p>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=4d1929a2">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=595c66a8">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8715,18 +8589,18 @@ Name: MonthlyIncome, dtype: float64
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=2f9d359a">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=f5fd41d7">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p><strong>Lectura de los gráficos.</strong> Renuncia uno de cada seis empleados. Quienes hacen horas extra renuncian casi tres veces más que quienes no: es la señal más fuerte y la más accionable para Recursos Humanos. Los representantes de ventas y los técnicos de laboratorio concentran las tasas más altas; directores y gerentes casi no renuncian. Y quienes renuncian ganan, en la mediana, bastante menos. Estas son las primeras pistas de lo que el modelo debería captar.</p>
-<h3 id="Correlaci%C3%B3n-entre-variables-num%C3%A9ricas">Correlación entre variables numéricas<a class="anchor-link" href="#Correlaci%C3%B3n-entre-variables-num%C3%A9ricas">¶</a></h3><p>Cuando dos variables suben y bajan juntas están correlacionadas. Conviene saberlo porque, si dos variables son casi la misma cosa, el modelo no puede separar bien el efecto de cada una.</p>
+<p><strong>Lectura:</strong> renuncia uno de cada seis. Con horas extra, casi tres veces más. Los representantes de ventas son el puesto más crítico. Quien renuncia gana menos.</p>
+<h3 id="Correlaci%C3%B3n-entre-num%C3%A9ricas">Correlación entre numéricas<a class="anchor-link" href="#Correlaci%C3%B3n-entre-num%C3%A9ricas">¶</a></h3><p>Si dos variables son casi la misma cosa, el modelo no puede separar sus efectos.</p>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=8ad848b2">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=19ac7830">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8757,18 +8631,18 @@ Name: MonthlyIncome, dtype: float64
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=7c7add7a">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=2a66d6e8">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p><strong>Lectura.</strong> Las variables de trayectoria van juntas: años en la empresa, años en el rol, años con el jefe actual y años totales de carrera se mueven en bloque. El nivel jerárquico va casi pegado al ingreso mensual, y el porcentaje del último aumento va de la mano con la evaluación de desempeño, lo que tiene sentido en una política salarial.</p>
-<h3 id="Multicolinealidad:-qu%C3%A9-hacemos-con-las-variables-casi-duplicadas">Multicolinealidad: qué hacemos con las variables casi duplicadas<a class="anchor-link" href="#Multicolinealidad:-qu%C3%A9-hacemos-con-las-variables-casi-duplicadas">¶</a></h3><p>Regla simple y explicable: si dos variables tienen una correlación de <strong>0,9 o más</strong>, son prácticamente la misma información y se conserva una sola, la más útil para Recursos Humanos. Entre 0,7 y 0,9 se conservan ambas: el modelo que usaremos tiene un mecanismo de regularización que reparte el peso entre variables parecidas sin romperse, y quitarlas perdería matices (no es lo mismo la antigüedad total que el tiempo con el jefe actual).</p>
+<p><strong>Lectura:</strong> las variables de trayectoria (años en la empresa, en el rol, con el jefe, de carrera) se mueven en bloque; nivel jerárquico e ingreso van casi pegados.</p>
+<h3 id="Multicolinealidad">Multicolinealidad<a class="anchor-link" href="#Multicolinealidad">¶</a></h3><p>Regla: con correlación de 0,9 o más se conserva una sola variable; entre 0,7 y 0,9 se conservan ambas, porque el modelo regularizado las tolera.</p>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=a162aa38">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=d725b62f">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8814,18 +8688,18 @@ dtype: float64
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=d55f42d5">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=37ffe8e4">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p><strong>Decisión:</strong> se elimina <code>JobLevel</code>, casi idéntica a <code>MonthlyIncome</code> (correlación 0,95). El ingreso es más concreto y accionable para Recursos Humanos. Quedan 22 variables numéricas y 7 categóricas.</p>
-<h3 id="Reporte-autom%C3%A1tico-de-exploraci%C3%B3n-(Sweetviz)">Reporte automático de exploración (Sweetviz)<a class="anchor-link" href="#Reporte-autom%C3%A1tico-de-exploraci%C3%B3n-(Sweetviz)">¶</a></h3><p>En clase se mostraron herramientas de exploración automática (Dataprep; Sweetviz en un notebook de ejemplo). Sweetviz genera en una línea un informe HTML completo, con la distribución de cada variable y su relación con la renuncia. Queda guardado en <code>reports/eda_sweetviz.html</code> para abrir en el navegador. Complementa los gráficos dirigidos de arriba, no los reemplaza.</p>
+<p><strong>Decisión:</strong> se elimina <code>JobLevel</code>, casi idéntica al ingreso (0,95); el ingreso es más accionable para Recursos Humanos.</p>
+<h3 id="Reporte-autom%C3%A1tico-(Sweetviz)">Reporte automático (Sweetviz)<a class="anchor-link" href="#Reporte-autom%C3%A1tico-(Sweetviz)">¶</a></h3><p>Como en clase, un informe automático de cada variable contra la renuncia. Queda en <code>reports/eda_sweetviz.html</code>.</p>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=e5ee261e">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=ac6457dc">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8860,22 +8734,17 @@ dtype: float64
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=79ec9521">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=143aa5ca">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="7.-El-grupo-de-examen:-separar-antes-de-transformar">7. El grupo de examen: separar antes de transformar<a class="anchor-link" href="#7.-El-grupo-de-examen:-separar-antes-de-transformar">¶</a></h2><p>Para saber si el modelo funciona con empleados que nunca vio, apartamos el 20 % de los datos como <strong>grupo de examen (test)</strong>. El modelo estudia con el otro 80 % y rinde el examen <strong>una sola vez</strong>, al final de la Entrega 2. Tres detalles importan:</p>
-<ul>
-<li><strong>Estratificado</strong>: el grupo de examen conserva la misma proporción de renuncias que el total, 16 %. Sin esto, por azar podría quedar con muy pocas.</li>
-<li><strong>Antes de cualquier transformación</strong>: el escalado y la codificación se aprenden solo del 80 %. Si se calcularan mirando también al grupo de examen, el examen estaría contaminado. Eso es <em>data leakage</em>.</li>
-<li><strong>Reproducible</strong>: con la semilla fija (<code>random_state=42</code>) la separación es siempre la misma, así la Entrega 2 puede rehacerla exactamente igual.</li>
-</ul>
+<h2 id="7.-Grupo-de-examen">7. Grupo de examen<a class="anchor-link" href="#7.-Grupo-de-examen">¶</a></h2><p>Apartamos el 20 % de los empleados <strong>antes de tocar nada</strong>, con la misma proporción de renuncias. El modelo se evalúa con ellos una sola vez, al final. Así el escalado y la codificación se aprenden solo del 80 % y no hay <em>data leakage</em>.</p>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=0aeb0753">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=83878f3a">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8911,23 +8780,18 @@ Examen: 294 empleados, 47 renuncias
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=0c2625d3">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=9db467b4">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p><strong>Limitación a declarar:</strong> el grupo de examen tiene solo 47 renuncias. Con tan pocos casos, las métricas en test tienen un margen de error apreciable. Por eso la validación fina del modelo se hará con <strong>validación cruzada</strong> dentro del 80 % de entrenamiento, y el test se reserva para la confirmación final.</p>
-<h2 id="8.-La-receta-de-preparaci%C3%B3n-(pipeline-de-preprocesamiento)">8. La receta de preparación (pipeline de preprocesamiento)<a class="anchor-link" href="#8.-La-receta-de-preparaci%C3%B3n-(pipeline-de-preprocesamiento)">¶</a></h2><p>Todo lo decidido en las secciones 5 y 6 se escribe en un solo objeto, la "receta": escalar las numéricas y codificar las categóricas. Tiene dos propiedades que son el corazón de este trabajo:</p>
-<ul>
-<li><strong>Se ajusta solo con el grupo de entrenamiento</strong> (<code>fit</code>) y después se aplica igual a cualquier empleado: del test o del futuro.</li>
-<li><strong>Es reproducible</strong>: no hay pasos manuales. En la Entrega 2 la receta se une al modelo en un único <em>pipeline</em>; en la Entrega 3 ese mismo objeto se guarda y se carga en la API. Así la preparación en producción es idéntica a la del entrenamiento <strong>por construcción</strong>, no por cuidado.</li>
-</ul>
-<p>Dos opciones técnicas que conviene poder explicar: <code>handle_unknown="ignore"</code> hace que, si en el futuro aparece una categoría nueva (un puesto que hoy no existe), el modelo no se rompa; <code>drop="if_binary"</code> hace que las variables de dos opciones, como horas extra sí/no, ocupen una sola columna.</p>
+<p>Son 47 renuncias en el examen, pocas. Por eso el ajuste fino del modelo se hace con validación cruzada dentro del 80 %.</p>
+<h2 id="8.-Receta-de-preparaci%C3%B3n">8. Receta de preparación<a class="anchor-link" href="#8.-Receta-de-preparaci%C3%B3n">¶</a></h2><p>Toda la preparación en un solo objeto: escalar las numéricas y codificar las categóricas. Se ajusta solo con el grupo de entrenamiento y se aplica igual a cualquier empleado. En la Entrega 2 se une al modelo; en la Entrega 3 viaja a la API. <code>handle_unknown="ignore"</code>: una categoría nueva no rompe el modelo.</p>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=846e1426">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=0d1f7118">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -9188,19 +9052,18 @@ Examen: 294 empleados, 47 renuncias
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=167e4a3d">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=1242ab2b">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p><strong>Resultado:</strong> 29 variables de entrada se convierten en 48 columnas numéricas listas para el modelo. Arriba se ve un empleado concreto ya preparado: las numéricas quedan como distancias al promedio (0 es el promedio, 1 es una dispersión por encima) y las categóricas como unos y ceros.</p>
-<h3 id="Balance-de-clases:-decisi%C3%B3n">Balance de clases: decisión<a class="anchor-link" href="#Balance-de-clases:-decisi%C3%B3n">¶</a></h3><p>Solo el 16 % de los empleados renuncia. Si no se hace nada, un modelo tiende a aprender que "nadie renuncia", porque así acierta el 84 %. Hay dos caminos: <strong>crear empleados sintéticos</strong> de la clase minoritaria (SMOTE, lo que hace PyCaret por defecto con <code>fix_imbalance</code>) o <strong>pesar más los errores</strong> sobre quienes renuncian al entrenar (<code>class_weight="balanced"</code>).</p>
-<p><strong>Decisión: pesar los errores, no inventar datos.</strong> Logra el mismo objetivo, no agrega empleados artificiales al conjunto de entrenamiento, no requiere una librería extra y es fácil de explicar: al entrenar, equivocarse con alguien que renuncia pesa unas cinco veces más que equivocarse con alguien que se queda, que es exactamente la proporción entre ambos grupos. Se aplica dentro del modelo en la Entrega 2; aquí se muestran los pesos que resultan.</p>
+<p><strong>Resultado:</strong> 29 variables se convierten en 48 columnas. Arriba, un empleado ya preparado.</p>
+<h3 id="Balance-de-clases">Balance de clases<a class="anchor-link" href="#Balance-de-clases">¶</a></h3><p>Solo el 16 % renuncia. <strong>Decisión:</strong> en vez de inventar empleados sintéticos (SMOTE), el modelo pesará más los errores sobre quienes renuncian (<code>class_weight="balanced"</code>). Mismo objetivo, sin datos artificiales.</p>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=f6d9a13a">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=d835f346">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -9231,18 +9094,18 @@ Examen: 294 empleados, 47 renuncias
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=4bc12ccb">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=b01323b8">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="Transformaciones-de-variables-y-del-objetivo:-decisi%C3%B3n">Transformaciones de variables y del objetivo: decisión<a class="anchor-link" href="#Transformaciones-de-variables-y-del-objetivo:-decisi%C3%B3n">¶</a></h3><p>La variable objetivo es sí/no: no hay nada que transformar. Entre las numéricas, algunas están <strong>sesgadas</strong> (muchos valores bajos y pocos muy altos), como el ingreso mensual o los años desde el último ascenso. Una transformación logarítmica las haría más simétricas.</p>
-<p><strong>Decisión: no transformar por ahora.</strong> El modelo lineal regularizado con variables escaladas funciona razonablemente con estas asimetrías, y mantener las unidades originales hace que los pesos de la Entrega 2 se lean directo. Queda anotado como mejora posible si el modelo lo necesitara. Abajo, la asimetría de las variables más sesgadas (0 es simétrica; más de 1 es sesgo fuerte).</p>
+<p>Una renuncia mal predicha pesa unas cinco veces más: la proporción real entre ambos grupos.</p>
+<h3 id="Transformaciones">Transformaciones<a class="anchor-link" href="#Transformaciones">¶</a></h3><p>El objetivo es sí/no: no se transforma. Algunas numéricas están sesgadas (abajo). <strong>Decisión:</strong> no transformarlas, para mantener las unidades originales y leer los pesos del modelo directo.</p>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=7d446254">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=fbb5c6a0">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -9276,17 +9139,17 @@ dtype: float64
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=9b15ceaa">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=71bb368a">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="Componentes-principales-(PCA):-an%C3%A1lisis-y-decisi%C3%B3n">Componentes principales (PCA): análisis y decisión<a class="anchor-link" href="#Componentes-principales-(PCA):-an%C3%A1lisis-y-decisi%C3%B3n">¶</a></h3><p>El análisis de componentes principales comprime muchas variables en pocas "componentes" combinadas. Sirve cuando hay cientos de variables redundantes. Lo analizamos sobre los datos ya preparados para ver si vale la pena.</p>
+<h3 id="Componentes-principales-(PCA)">Componentes principales (PCA)<a class="anchor-link" href="#Componentes-principales-(PCA)">¶</a></h3><p>Comprime muchas variables en pocas componentes combinadas. Se analiza para ver si vale la pena.</p>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=5a3892bb">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=5a653356">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -9333,18 +9196,18 @@ dtype: float64
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=f355e03e">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=aa16f21f">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p><strong>Decisión: no usar PCA.</strong> Para conservar el 90 % de la información hacen falta 22 de las 48 columnas: la compresión es moderada, y a cambio cada componente sería una mezcla de variables sin nombre. No compensa perder la lectura directa de cada variable, que es justamente lo que Recursos Humanos necesita ("cuánto pesan las horas extra"). Con 48 columnas y 1.176 empleados de entrenamiento, tampoco hay un problema de dimensionalidad que resolver.</p>
-<h3 id="Ranking-de-variables-m%C3%A1s-importantes">Ranking de variables más importantes<a class="anchor-link" href="#Ranking-de-variables-m%C3%A1s-importantes">¶</a></h3><p>Antes de entrenar ningún modelo, un ranking libre de modelo: la <strong>información mutua</strong> mide cuánto ayuda conocer cada variable para adivinar si el empleado renuncia (0 = no ayuda nada). Se calcula solo con el grupo de entrenamiento.</p>
+<p><strong>Decisión:</strong> no usar PCA. Hacen falta 22 de 48 componentes para el 90 % de la información, y se perdería la lectura directa de cada variable, que es lo que Recursos Humanos necesita.</p>
+<h3 id="Ranking-de-variables">Ranking de variables<a class="anchor-link" href="#Ranking-de-variables">¶</a></h3><p>Información mutua: cuánto ayuda cada variable a anticipar la renuncia, sin entrenar ningún modelo.</p>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=6ada3dbd">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=321e6909">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -9378,18 +9241,18 @@ dtype: float64
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=42392598">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=f82ec57a">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p><strong>Lectura.</strong> Las variables que más ayudan a anticipar la renuncia son las que ya aparecían en la exploración: ingreso, antigüedad, opciones sobre acciones y horas extra, junto con la edad, la cantidad de empresas previas y el estado civil. Este ranking es una guía, no una selección: el modelo de la Entrega 2 recibe todas las variables y él decide el peso de cada una.</p>
-<h3 id="El-dataset-final">El dataset final<a class="anchor-link" href="#El-dataset-final">¶</a></h3><p>La Primera Asignación pide entregar el dataset final. Se guardan tres archivos en <code>data/procesado/</code>: el dataset <strong>limpio</strong> (sin las columnas eliminadas, con los valores originales) y los grupos de <strong>entrenamiento</strong> y <strong>examen</strong> ya pasados por la receta. En la Entrega 2 el modelo se entrena aplicando la receta a los datos crudos, que es lo que garantiza que producción prepare igual; estos archivos son la foto entregable de ese proceso.</p>
+<p><strong>Lectura:</strong> ingreso, antigüedad, opciones sobre acciones y horas extra encabezan el ranking. Es una guía, no una selección: el modelo recibe todas las variables.</p>
+<h3 id="Dataset-final">Dataset final<a class="anchor-link" href="#Dataset-final">¶</a></h3><p>Se entregan en <code>data/procesado/</code> el dataset limpio y los grupos de entrenamiento y examen ya preparados.</p>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=e0d43dde">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=ae071387">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -9424,17 +9287,17 @@ dtype: float64
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=7790d0dd">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=8ee03bc8">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="9.-Baseline:-la-referencia-m%C3%ADnima">9. Baseline: la referencia mínima<a class="anchor-link" href="#9.-Baseline:-la-referencia-m%C3%ADnima">¶</a></h2><p>Antes de entrenar cualquier modelo hay que saber qué tan bien se puede hacer <strong>sin aprender nada</strong>. El baseline más simple predice siempre la clase mayoritaria: "se queda". Lo medimos con validación cruzada dentro del grupo de entrenamiento; el grupo de examen no se toca hasta la evaluación final.</p>
+<h2 id="9.-Baseline">9. Baseline<a class="anchor-link" href="#9.-Baseline">¶</a></h2><p>Predecir siempre "se queda", sin aprender nada. Medido con validación cruzada dentro del entrenamiento; el examen no se toca.</p>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=3f92dd70">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=e29413a7">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -9473,99 +9336,76 @@ ROC-AUC: 0.5
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=faed36fc">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=df90d800">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p><strong>Lectura.</strong> El baseline acierta el 84 % de las veces sin mirar un solo dato del empleado, porque el 84 % efectivamente se queda. Pero no detecta ni una renuncia: su recall es cero, y su ROC-AUC de 0,50 es el valor del azar. Esta es la razón por la que en este problema <strong>la exactitud (accuracy) no sirve como métrica</strong>: un modelo inútil la tiene alta. En la Entrega 2 miraremos ROC-AUC, recall y precisión, y cualquier modelo tendrá que superar claramente estas referencias.</p>
-<h2 id="10.-Cierre:-qu%C3%A9-decidimos-y-qu%C3%A9-sigue">10. Cierre: qué decidimos y qué sigue<a class="anchor-link" href="#10.-Cierre:-qu%C3%A9-decidimos-y-qu%C3%A9-sigue">¶</a></h2><ol>
-<li>Los datos vienen limpios de origen: sin faltantes ni duplicados. Los valores extremos se conservan porque son empleados reales.</li>
-<li>Se eliminan cuatro columnas sin información (tres constantes y el número de legajo) y una redundante (<code>JobLevel</code>, casi idéntica al ingreso).</li>
-<li>Siete variables categóricas se codifican como sí/no; 22 numéricas se escalan; las nueve escalas de encuesta se tratan como números, por decisión explícita.</li>
-<li>El 20 % de los empleados queda apartado como grupo de examen, con la misma proporción de renuncias, antes de cualquier transformación.</li>
-<li>La receta de preparación está escrita en un solo objeto reproducible, ajustado solo con el 80 % de entrenamiento: 29 variables se convierten en 48 columnas.</li>
-<li>El desbalance se trata con pesos de clase en el modelo, no con datos sintéticos. No se transforman variables ni se usa PCA, por interpretabilidad.</li>
-<li>Referencia mínima: predecir siempre "se queda" acierta el 84 % pero no detecta ninguna renuncia.</li>
-</ol>
-<h3 id="Punto-por-punto-de-la-Primera-Asignaci%C3%B3n-del-profesor">Punto por punto de la Primera Asignación del profesor<a class="anchor-link" href="#Punto-por-punto-de-la-Primera-Asignaci%C3%B3n-del-profesor">¶</a></h3><table>
+<p><strong>Lectura:</strong> acierta el 84 % sin mirar un dato, pero no detecta ninguna renuncia (recall 0) y su ROC-AUC de 0,50 es el azar. Por eso la exactitud no sirve acá: en la Entrega 2 se miran ROC-AUC, recall y precisión.</p>
+<h2 id="10.-Cierre">10. Cierre<a class="anchor-link" href="#10.-Cierre">¶</a></h2><table>
 <thead>
 <tr>
-<th>Punto pedido</th>
-<th>Qué se hizo</th>
-<th>Dónde</th>
+<th>Punto de la Primera Asignación</th>
+<th>Decisión</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>Análisis exploratorio</td>
-<td>Cuatro gráficos dirigidos, matriz de correlación y reporte automático Sweetviz</td>
-<td>Sección 6</td>
+<td>Cuatro gráficos, correlación y reporte Sweetviz</td>
 </tr>
 <tr>
-<td>Limpiar datos, imputar nulos o faltantes</td>
-<td>No hay faltantes ni duplicados; verificado y documentado. La receta es el lugar donde iría la imputación si hicieran falta</td>
-<td>Sección 3</td>
+<td>Faltantes</td>
+<td>No hay; verificado</td>
 </tr>
 <tr>
-<td>Tratar outliers</td>
-<td>Analizados con boxplots; se conservan porque son empleados reales y el modelo los tolera</td>
-<td>Sección 3</td>
+<td>Outliers</td>
+<td>Se conservan: son empleados reales</td>
 </tr>
 <tr>
-<td>Gestionar nuevas variables o cambiar tipos</td>
-<td>No se crean variables nuevas; las nueve escalas de encuesta se tratan como números por decisión</td>
-<td>Sección 5</td>
+<td>Nuevas variables / tipos</td>
+<td>No se crean; escalas de encuesta como números</td>
 </tr>
 <tr>
 <td>Encoding</td>
-<td>One-hot de las siete categóricas dentro de la receta, robusto a categorías nuevas</td>
-<td>Sección 8</td>
+<td>One-hot de las 7 categóricas, dentro de la receta</td>
 </tr>
 <tr>
-<td>Balancear variables y objetivo</td>
-<td>Sin datos sintéticos; pesos de clase en el modelo (una renuncia mal predicha pesa 5,2 veces más que un "se queda" mal predicho)</td>
-<td>Sección 8</td>
+<td>Balance</td>
+<td>Pesos de clase, sin datos sintéticos</td>
 </tr>
 <tr>
-<td>Normalizar variables</td>
-<td>Escalado estándar de las numéricas dentro de la receta</td>
-<td>Sección 8</td>
+<td>Normalización</td>
+<td>Escalado estándar de las numéricas</td>
 </tr>
 <tr>
-<td>Transformar variables y objetivo</td>
-<td>Analizada la asimetría; no se transforma para mantener unidades interpretables</td>
-<td>Sección 8</td>
+<td>Transformaciones</td>
+<td>No; se mantienen las unidades originales</td>
 </tr>
 <tr>
-<td>Remover multicolinealidad</td>
-<td>Regla de correlación 0,9 o más: se elimina <code>JobLevel</code>, casi idéntica al ingreso</td>
-<td>Sección 6</td>
+<td>Multicolinealidad</td>
+<td>Se elimina <code>JobLevel</code> (0,95 con el ingreso)</td>
 </tr>
 <tr>
-<td>Tratar baja varianza</td>
-<td>Constantes eliminadas; <code>PerformanceRating</code>, casi constante, se conserva y se documenta</td>
-<td>Sección 4</td>
+<td>Baja varianza</td>
+<td>Se eliminan las constantes; <code>PerformanceRating</code> se conserva</td>
 </tr>
 <tr>
-<td>Analizar principalidad (PCA)</td>
-<td>Analizado sobre los datos preparados; no se usa por falta de compresión e interpretabilidad</td>
-<td>Sección 8</td>
+<td>PCA</td>
+<td>Analizado; no se usa</td>
 </tr>
 <tr>
-<td>Ranking de variables importantes</td>
-<td>Información mutua con la renuncia, top 15</td>
-<td>Sección 8</td>
+<td>Ranking de variables</td>
+<td>Información mutua, top 15</td>
 </tr>
 <tr>
-<td>Entregar el dataset final</td>
-<td><code>data/procesado/</code>: dataset limpio, entrenamiento y examen preparados</td>
-<td>Sección 8</td>
+<td>Dataset final</td>
+<td><code>data/procesado/</code></td>
 </tr>
 </tbody>
 </table>
-<p><strong>Sigue en la Entrega 2:</strong> unir la receta con un modelo de regresión logística, ajustarlo con validación cruzada, decidir el punto de corte y evaluar una única vez en el grupo de examen.</p>
+<p><strong>Sigue:</strong> Entrega 2, el modelo.</p>
 </div>
 </div>
 </div>
