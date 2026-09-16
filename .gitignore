@@ -1,0 +1,22 @@
+# entorno
+.venv/
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+.pytest_cache/
+
+# temporales (el .pkl final y los reportes HTML SI se versionan: el profesor los abre sin ejecutar nada)
+*.log
+
+# material del profesor descargado del aula: referencia local, no se versiona
+material_clase/
+
+# SO / editores
+.DS_Store
+Thumbs.db
+.vscode/
+
+# notas privadas de preparacion del alumno (no se publican)
+CLAUDE.md
+PLAN.md
+docs/guia_presentacion.md

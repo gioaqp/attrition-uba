@@ -1,0 +1,18 @@
+# Entorno conda equivalente al .venv del proyecto.
+# Fuente de verdad de las versiones: requirements.txt (congelado desde el venv con uv).
+#
+# Con conda:
+#   conda env create -f environment.yml
+#   conda activate attrition-uba
+#
+# Sin conda (lo que se uso en este trabajo):
+#   uv venv .venv --python 3.11
+#   uv pip install --python .venv\Scripts\python.exe -r requirements.txt
+name: attrition-uba
+channels:
+  - conda-forge
+dependencies:
+  - python=3.11
+  - pip
+  - pip:
+      - -r requirements.txt
