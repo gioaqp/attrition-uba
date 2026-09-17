@@ -1,62 +1,68 @@
-"""
-API de inferencia - Trabajo final M71V/M72V 02 (UBA)
-Entrega 3: Despliegue para consumo.
-
-Levantar con:
-    uvicorn api.app:app --reload
-Documentacion interactiva (demo):
-    http://127.0.0.1:8000/docs
-"""
-
+from contextlib import asynccontextmanager
 from pathlib import Path
+from typing import Literal
 
 import joblib
 import pandas as pd
-from fastapi import FastAPI, HTTPException
-from pydantic import BaseModel, Field
+from fastapi import FastAPI
+from pydantic import BaseModel
 
-MODEL_PATH = Path(__file__).resolve().parent.parent / "models" / "modelo_attrition.pkl"
+MODELO = Path(__file__).resolve().parent.parent / "models" / "modelo_attrition.pkl"
+
+modelo = {}
+
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    modelo["pipeline"] = joblib.load(MODELO)
+    yield
+    modelo.clear()
+
 
 app = FastAPI(
-    title="Prediccion de Attrition de empleados",
-    description="Sirve el pipeline entrenado (preprocesamiento + modelo) como endpoint de inferencia.",
-    version="1.0.0",
+    title="Predicción de renuncias",
+    description="Recibe los datos de un empleado y devuelve la probabilidad de que renuncie.",
+    version="1.0",
+    lifespan=lifespan,
 )
-
-# El artefacto se carga UNA sola vez al arrancar el proceso, no en cada request.
-# Es el mismo Pipeline serializado en la Entrega 2: preprocesamiento y modelo juntos,
-# por lo que la transformacion en inferencia es identica a la del entrenamiento.
-modelo = None
-
-
-@app.on_event("startup")
-def cargar_modelo() -> None:
-    global modelo
-    modelo = joblib.load(MODEL_PATH)
 
 
 class Empleado(BaseModel):
-    """Features crudas de un empleado, tal como vienen en el dataset original."""
-
     Age: int
-    BusinessTravel: str
+    BusinessTravel: Literal["Non-Travel", "Travel_Frequently", "Travel_Rarely"]
     DailyRate: int
-    Department: str
+    Department: Literal["Human Resources", "Research & Development", "Sales"]
     DistanceFromHome: int
     Education: int
-    EducationField: str
+    EducationField: Literal[
+        "Human Resources",
+        "Life Sciences",
+        "Marketing",
+        "Medical",
+        "Other",
+        "Technical Degree",
+    ]
     EnvironmentSatisfaction: int
-    Gender: str
+    Gender: Literal["Female", "Male"]
     HourlyRate: int
     JobInvolvement: int
-    JobLevel: int
-    JobRole: str
+    JobRole: Literal[
+        "Healthcare Representative",
+        "Human Resources",
+        "Laboratory Technician",
+        "Manager",
+        "Manufacturing Director",
+        "Research Director",
+        "Research Scientist",
+        "Sales Executive",
+        "Sales Representative",
+    ]
     JobSatisfaction: int
-    MaritalStatus: str
+    MaritalStatus: Literal["Divorced", "Married", "Single"]
     MonthlyIncome: int
     MonthlyRate: int
     NumCompaniesWorked: int
-    OverTime: str
+    OverTime: Literal["No", "Yes"]
     PercentSalaryHike: int
     PerformanceRating: int
     RelationshipSatisfaction: int
@@ -72,83 +78,57 @@ class Empleado(BaseModel):
     model_config = {
         "json_schema_extra": {
             "example": {
-                  "Age": 41,
-                  "BusinessTravel": "Travel_Rarely",
-                  "DailyRate": 1102,
-                  "Department": "Sales",
-                  "DistanceFromHome": 1,
-                  "Education": 2,
-                  "EducationField": "Life Sciences",
-                  "EnvironmentSatisfaction": 2,
-                  "Gender": "Female",
-                  "HourlyRate": 94,
-                  "JobInvolvement": 3,
-                  "JobLevel": 2,
-                  "JobRole": "Sales Executive",
-                  "JobSatisfaction": 4,
-                  "MaritalStatus": "Single",
-                  "MonthlyIncome": 5993,
-                  "MonthlyRate": 19479,
-                  "NumCompaniesWorked": 8,
-                  "OverTime": "Yes",
-                  "PercentSalaryHike": 11,
-                  "PerformanceRating": 3,
-                  "RelationshipSatisfaction": 1,
-                  "StockOptionLevel": 0,
-                  "TotalWorkingYears": 8,
-                  "TrainingTimesLastYear": 0,
-                  "WorkLifeBalance": 1,
-                  "YearsAtCompany": 6,
-                  "YearsInCurrentRole": 4,
-                  "YearsSinceLastPromotion": 0,
-                  "YearsWithCurrManager": 5
-                }
+                "Age": 21,
+                "BusinessTravel": "Travel_Frequently",
+                "DailyRate": 756,
+                "Department": "Sales",
+                "DistanceFromHome": 1,
+                "Education": 1,
+                "EducationField": "Technical Degree",
+                "EnvironmentSatisfaction": 1,
+                "Gender": "Female",
+                "HourlyRate": 99,
+                "JobInvolvement": 2,
+                "JobRole": "Sales Representative",
+                "JobSatisfaction": 2,
+                "MaritalStatus": "Single",
+                "MonthlyIncome": 2174,
+                "MonthlyRate": 9150,
+                "NumCompaniesWorked": 1,
+                "OverTime": "Yes",
+                "PercentSalaryHike": 11,
+                "PerformanceRating": 3,
+                "RelationshipSatisfaction": 3,
+                "StockOptionLevel": 0,
+                "TotalWorkingYears": 1,
+                "TrainingTimesLastYear": 3,
+                "WorkLifeBalance": 3,
+                "YearsAtCompany": 1,
+                "YearsInCurrentRole": 0,
+                "YearsSinceLastPromotion": 0,
+                "YearsWithCurrManager": 0,
+            }
         }
     }
 
 
-class Prediccion(BaseModel):
-    attrition: str = Field(description="Clase predicha: Yes o No")
-    probabilidad: float = Field(description="Probabilidad de la clase positiva (Yes)")
+class Respuesta(BaseModel):
+    attrition: str
+    probabilidad: float
 
 
 @app.get("/health")
-def health() -> dict:
-    """Chequeo de vida del servicio."""
-    return {"status": "ok", "modelo_cargado": modelo is not None}
+def health():
+    return {"estado": "ok", "modelo_cargado": "pipeline" in modelo}
 
 
-@app.post("/predict", response_model=Prediccion)
-def predict(empleado: Empleado) -> Prediccion:
-    """Predice si un empleado va a renunciar."""
-    if modelo is None:
-        raise HTTPException(status_code=503, detail="Modelo no disponible")
-
-    df = pd.DataFrame([empleado.model_dump()])
-    try:
-        proba = float(modelo.predict_proba(df)[0][1])
-        clase = modelo.predict(df)[0]
-    except Exception as exc:
-        raise HTTPException(status_code=400, detail=f"Error de inferencia: {exc}")
-
-    clase = "Yes" if str(clase) in ("Yes", "1") else "No"
-    return Prediccion(attrition=clase, probabilidad=round(proba, 4))
-
-
-@app.post("/predict_batch", response_model=list[Prediccion])
-def predict_batch(empleados: list[Empleado]) -> list[Prediccion]:
-    """Igual que /predict pero para varios empleados en una sola llamada."""
-    if modelo is None:
-        raise HTTPException(status_code=503, detail="Modelo no disponible")
-
-    df = pd.DataFrame([e.model_dump() for e in empleados])
-    probas = modelo.predict_proba(df)[:, 1]
-    clases = modelo.predict(df)
-
-    return [
-        Prediccion(
-            attrition="Yes" if str(c) in ("Yes", "1") else "No",
-            probabilidad=round(float(p), 4),
-        )
-        for c, p in zip(clases, probas)
-    ]
+@app.post("/predict", response_model=Respuesta)
+def predict(empleado: Empleado):
+    datos = pd.DataFrame([empleado.model_dump()])
+    pipeline = modelo["pipeline"]
+    probabilidad = float(pipeline.predict_proba(datos)[0][1])
+    renuncia = int(pipeline.predict(datos)[0]) == 1
+    return Respuesta(
+        attrition="Yes" if renuncia else "No",
+        probabilidad=round(probabilidad, 4),
+    )

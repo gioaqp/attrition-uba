@@ -11,12 +11,12 @@ Un modelo que estima, para cada empleado, la probabilidad de que renuncie, y una
 |---|---|---|---|
 | 1. Preparación de los datos | `notebooks/01_datos.ipynb` | [![Abrir en Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/gioaqp/attrition-uba/blob/main/notebooks/01_datos.ipynb) | lista |
 | 2. Entrenamiento del modelo | `notebooks/02_modelo.ipynb` | [![Abrir en Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/gioaqp/attrition-uba/blob/main/notebooks/02_modelo.ipynb) | lista |
-| 3. Despliegue para consumo | `api/` | próximamente | en curso |
+| 3. Despliegue para consumo | `api/` y `notebooks/03_api_demo.ipynb` | [![Abrir en Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/gioaqp/attrition-uba/blob/main/notebooks/03_api_demo.ipynb) | lista |
 
 ## Verlo sin instalar nada
 
 - **Colab:** botón de la tabla y luego *Entorno de ejecución → Ejecutar todo*. La primera celda descarga este repositorio e instala lo necesario. Tarda alrededor de un minuto.
-- **Solo leer:** `reports/01_datos.html` y `reports/02_modelo.html` son los cuadernos con todas sus salidas; `reports/eda_sweetviz.html` es el reporte automático de exploración.
+- **Solo leer:** `reports/01_datos.html`, `reports/02_modelo.html` y `reports/03_api_demo.html` son los cuadernos con todas sus salidas; `reports/eda_sweetviz.html` es el reporte automático de exploración.
 
 ## Correrlo en la computadora
 
@@ -65,3 +65,34 @@ Grupo de examen, comparado con el baseline que predice siempre "se queda":
 | Exactitud | 0,84 | 0,72 |
 
 Los valores exactos están en `models/metricas.json`.
+
+## API
+
+El servicio carga `models/modelo_attrition.pkl`, el mismo archivo que guardó la Entrega 2: trae adentro la receta de preparación, el modelo y el punto de corte, así que en producción los datos se transforman exactamente igual que en el entrenamiento. Se carga una sola vez al arrancar.
+
+```powershell
+.venv\Scripts\uvicorn api.app:app --reload
+```
+
+| Ruta | Qué hace |
+|---|---|
+| `GET /health` | Dice si el servicio está vivo y si cargó el modelo. |
+| `POST /predict` | Recibe los 29 datos de un empleado y devuelve `{"attrition": "Yes"/"No", "probabilidad": 0.99}`. |
+
+Demo en el navegador: `http://127.0.0.1:8000/docs`. Los campos de texto solo aceptan los valores del dataset; cualquier otro devuelve error 422 antes de llegar al modelo.
+
+Probar los tres empleados de ejemplo (`api/ejemplos.json`: riesgo alto, estable y de frontera) con el servicio levantado:
+
+```powershell
+.venv\Scripts\python api\probar_ejemplos.py
+```
+
+Una consulta suelta con `curl`, usando el empleado de `api/ejemplo.json`:
+
+```bash
+curl -X POST http://127.0.0.1:8000/predict -H "Content-Type: application/json" -d @api/ejemplo.json
+```
+
+Respuesta: `{"attrition":"Yes","probabilidad":0.9877}`
+
+`notebooks/03_api_demo.ipynb` hace todo lo anterior sin navegador: levanta el servicio, manda los tres ejemplos y lo apaga. Es la versión que corre en Colab.
