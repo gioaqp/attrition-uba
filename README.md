@@ -74,6 +74,8 @@ El servicio carga `models/modelo_attrition.pkl`, el mismo archivo que guardó la
 .venv\Scripts\uvicorn api.app:app --reload
 ```
 
+O, sin escribir nada: doble clic en `levantar_api.bat`, que levanta el servicio y abre la pantalla de demostración en el navegador. Se apaga cerrando la ventana negra.
+
 | Ruta | Qué hace |
 |---|---|
 | `GET /health` | Dice si el servicio está vivo y si cargó el modelo. |
