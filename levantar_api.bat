@@ -7,6 +7,7 @@ if not exist ".venv\Scripts\uvicorn.exe" (
   pause
   exit /b 1
 )
-start "" /min cmd /c "timeout /t 4 >nul & start "" http://127.0.0.1:8000/docs"
+echo Levantando el servicio. El navegador se abre solo cuando este listo.
+start "" /min powershell -NoProfile -Command "for($i=0;$i -lt 90;$i++){try{$null=Invoke-WebRequest -UseBasicParsing 'http://127.0.0.1:8000/health' -TimeoutSec 2; Start-Process 'http://127.0.0.1:8000/docs'; break}catch{Start-Sleep -Seconds 1}}"
 ".venv\Scripts\uvicorn.exe" api.app:app
 pause
