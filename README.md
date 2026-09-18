@@ -81,7 +81,7 @@ O, sin escribir nada: doble clic en `levantar_api.bat`, que levanta el servicio 
 | `GET /health` | Dice si el servicio está vivo y si cargó el modelo. |
 | `POST /predict` | Recibe los 29 datos de un empleado y devuelve `{"attrition": "Yes"/"No", "probabilidad": 0.99}`. |
 
-Demo en el navegador: `http://127.0.0.1:8000/docs`. Los campos de texto solo aceptan los valores del dataset; cualquier otro devuelve error 422 antes de llegar al modelo.
+Demo en el navegador: `http://127.0.0.1:8000/docs`. La pantalla ya viene con un empleado cargado (el de riesgo alto de `api/ejemplo.json`); para probar el caso opuesto se pega el contenido de `api/ejemplo_estable.json`. Los campos de texto solo aceptan los valores del dataset; cualquier otro devuelve error 422 antes de llegar al modelo.
 
 Probar los tres empleados de ejemplo (`api/ejemplos.json`: riesgo alto, estable y de frontera) con el servicio levantado:
 
